@@ -35,7 +35,7 @@ echo '.streamlit/' >> .gitignore
 Then, create a `secrets.toml` file in `.streamlit` directory locally to store your API keys and other secrets:
 ```
 mkdir -p .streamlit
-echo 'openai_key="YOUR_OPENAI_API_KEY"' > .streamlit/secrets.toml
+echo 'openai_api_key="YOUR_OPENAI_API_KEY"' > .streamlit/secrets.toml
 ```
 
 Replace `YOUR_OPENAI_API_KEY` with your actual OpenAI API key.
