@@ -6,6 +6,7 @@ import yaml
 from pyprojroot import here
 import nltk
 from rake_nltk import Rake
+import requests
 
 
 
@@ -23,7 +24,43 @@ def RAG(_config, _docs):
     index = VectorStoreIndex.from_documents(_docs, service_context=service_context)
     return index
 
-def load_data():
+def get_Lebron():
+    
+    #first delete whatever is in that directory already
+    data_dir = './src/data'
+
+    # Clear the contents of the directory before saving the new file
+    for filename in os.listdir(data_dir):
+        file_path = os.path.join(data_dir, filename)
+        try:
+            if os.path.isfile(file_path) or os.path.islink(file_path):
+                os.unlink(file_path)  # Removes files and symlinks
+            elif os.path.isdir(file_path):
+                shutil.rmtree(file_path)  # Removes directories
+        except Exception as e:
+            print(f'Failed to delete {file_path}. Reason: {e}')
+    
+    # URL of the new LeBron webpage to download
+    
+    
+    url = 'https://www.basketball-reference.com/players/j/jamesle01.html'
+
+    response = requests.get(url)
+    response.raise_for_status()
+
+    
+    file_path = './src/data/lebron_james_reference.html'
+
+
+    with open(file_path, 'w', encoding='utf-8') as file:
+        file.write(response.text)
+    
+    print('New LeBron File Downloaded')
+
+    return 
+
+
+def load_data(): 
     reader = SimpleDirectoryReader(input_dir="src/data", recursive=True)
     docs = reader.load_data()
     return docs

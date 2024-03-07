@@ -44,7 +44,7 @@ Replace `YOUR_OPENAI_API_KEY` with your actual OpenAI API key.
 
 To start the Streamlit app, run:
 ```
-streamlit run app.py
+streamlit run src/app.py
 ```
 
 ## License

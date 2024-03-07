@@ -1,9 +1,10 @@
 from typing import List
 import streamlit as st
 from streamlit_chat import message
+from datetime import datetime
 from PIL import Image
 from utils import LoadConfig
-from utils import load_data, RAG
+from utils import load_data, RAG, get_Lebron
 import subprocess
 import os
 from llama_index import (
@@ -28,8 +29,20 @@ st.markdown(
     unsafe_allow_html=True,
 )
 st.divider()
+
+current_date = datetime.now()
+date_str = current_date.strftime("%B %d")
+day = current_date.day
+
+if 4 <= day <= 20 or 24 <= day <= 30:
+    suffix = "th"
+else:
+    suffix = ["st", "nd", "rd"][day % 10 - 1]
+
+formatted_date = f"{date_str}{suffix}"
+
 st.markdown(
-        "<center><i>[LAST UPDATED March 4th] LeGoat Tracker is an LLM assistant designed to give large language models access to static information downloaded from BasketballReference to keep up with LeBron's unprecedented historical longevity. The system does not keep track of your conversation and treats every turn/input independently. If possible, it will try to provide justification for its answer, a source, and a date</center>",
+        f"<center><i>[LAST UPDATED {formatted_date}] LeGoat Tracker is an LLM assistant designed to give large language models access to static information downloaded from BasketballReference to keep up with LeBron's unprecedented historical longevity. The system does not keep track of your conversation and treats every turn/input independently. If possible, it will try to provide justification for its answer, a source, and a date</center>",
         unsafe_allow_html=True,
     )
 st.divider()
@@ -86,6 +99,7 @@ if query := st.chat_input(
     try:
 
         with st.spinner("Reading through current static file(s)..."):
+            get_Lebron()
             data = load_data()
             index = RAG(Retriever, _docs=data)
             query_engine = index.as_query_engine(
