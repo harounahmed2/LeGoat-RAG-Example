@@ -42,7 +42,7 @@ else:
 formatted_date = f"{date_str}{suffix}"
 
 st.markdown(
-        f"<center><i>[LAST UPDATED {formatted_date}] LeGoat Tracker is an LLM assistant designed to give large language models access to static information downloaded from BasketballReference to keep up with LeBron's unprecedented historical longevity. The system does not keep track of your conversation and treats every turn/input independently. If possible, it will try to provide justification for its answer, a source, and a date</center>",
+        f"<center><i>[LAST UPDATED TODAY, {formatted_date}] LeGoat Tracker is an LLM assistant designed to give large language models access to static information downloaded from BasketballReference to keep up with LeBron's unprecedented historical longevity. The system does not keep track of your conversation and treats every turn/input independently. If possible, it will try to provide justification for its answer, a source, and a date</center>",
         unsafe_allow_html=True,
     )
 st.divider()
